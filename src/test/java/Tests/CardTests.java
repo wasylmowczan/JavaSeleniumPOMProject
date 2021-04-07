@@ -1,5 +1,6 @@
 package Tests;
 
+import PageObjects.CategoryPage;
 import PageObjects.ProductPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
@@ -39,6 +40,17 @@ public class CardTests {
         String productURL = "https://fakestore.testelka.pl/product/egipt-el-gouna/";
         ProductPage productPage = new ProductPage(driver);
         int productAmount = productPage.goTo(productURL).addToCard().viewCard().getProductAmount(productId);
+        assertTrue(productAmount == 1,
+                "Remove button was not found for a product with "+ productId +" (Egipt - El Gouna). " +
+                        "Was the product added to cart?");
+    }
+
+    @Test
+    public void addToCartFromCategoryPageTest() {
+        String productId = "386";
+        String categoryURL = "https://fakestore.testelka.pl/product-category/windsurfing/";
+        CategoryPage categoryPage = new CategoryPage(driver);
+        int productAmount = categoryPage.goTo(categoryURL).addToCart(productId).viewCart().getProductAmount(productId);;
         assertTrue(productAmount == 1,
                 "Remove button was not found for a product with "+ productId +" (Egipt - El Gouna). " +
                         "Was the product added to cart?");
