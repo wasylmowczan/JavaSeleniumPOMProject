@@ -5,22 +5,23 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class CartPage {
-
-    private WebDriver driver;
-    WebDriverWait wait;
-
+public class CartPage extends BasePage {
+    private final By shopTableLocator = By.cssSelector(".shop_table");
+    private final By productQuantityFieldLocator = By.cssSelector("div.quantity>input");
+    private final String removeProductButtonCssSelector = "a[data-product_id='<product_id>']";
     public CartPage(WebDriver driver) {
-        this.driver = driver;
+        super(driver);
     }
 
-    By shopTable = By.cssSelector(".shop_table");
+    public int getProductsAmount(String productId) {
+        WebDriverWait wait = new WebDriverWait(driver, 7);
+        wait.until(ExpectedConditions.presenceOfElementLocated(shopTableLocator));
+        By removeProductLocator = By.cssSelector(removeProductButtonCssSelector.replace("<product_id>", productId));
+        return driver.findElements(removeProductLocator).size();
+    }
 
-
-    public int getProductAmount(String productId) {
-        wait = new WebDriverWait(driver, 7);
-        wait.until(ExpectedConditions.presenceOfElementLocated(shopTable));
-        By removeProductButton = By.cssSelector("a[data-product_id='" + productId + "']");
-        return driver.findElements(removeProductButton).size();
+    public int getProductQuantity() {
+        String quantityString = driver.findElement(productQuantityFieldLocator).getAttribute("value");
+        return Integer.parseInt(quantityString);
     }
 }
