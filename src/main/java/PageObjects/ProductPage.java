@@ -7,19 +7,19 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class ProductPage extends BasePage{
+public class ProductPage extends BasePage {
     public HeaderPage header;
-    private WebDriverWait wait;
-
+    public DemoFooterPage demoNotice;
+    private final WebDriverWait wait;
+    private final By addToCartButtonLocator = By.cssSelector("button[name='add-to-cart']");
+    private final By viewCartButtonLocator = By.cssSelector(".woocommerce-message>.button");
+    private final By productQuantityFieldLocator = By.cssSelector("input.qty");
     public ProductPage(WebDriver driver) {
         super(driver);
         header = new HeaderPage(driver);
+        demoNotice = new DemoFooterPage(driver);
         wait = new WebDriverWait(driver, 7);
     }
-
-    private By addToCartButtonLocator = By.cssSelector("button[name='add-to-cart']");
-    private By viewCartButtonLocator = By.cssSelector(".woocommerce-message>.button");
-    private By productQuantityFieldLocator = By.cssSelector("input.qty");
 
     public ProductPage goTo(String productUrl) {
         driver.navigate().to(productUrl);

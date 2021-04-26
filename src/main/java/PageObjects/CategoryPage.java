@@ -9,8 +9,11 @@ public class CategoryPage extends BasePage {
     private final WebDriverWait wait;
     private final By viewCartButtonLocator = By.cssSelector(".added_to_cart");
     private final String addToCartButtonCssSelector = ".post-<product_id>>.add_to_cart_button";
+    public DemoFooterPage demoNotice;
+
     public CategoryPage(WebDriver driver) {
         super(driver);
+        demoNotice = new DemoFooterPage(driver);
         wait = new WebDriverWait(driver, 5);
     }
 
