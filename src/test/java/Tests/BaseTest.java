@@ -27,6 +27,7 @@ public class BaseTest {
         DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("platformName", "Windows 10");
         caps.setCapability("browserVersion", "latest");
+        caps.setCapability("browserName", "chrome");
 
         caps.setCapability("build", "Onboarding Sample App - Java-Junit5");
 
