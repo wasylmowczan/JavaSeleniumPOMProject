@@ -20,8 +20,8 @@ public class BaseTest {
 
     @BeforeEach
     public void testSetUp() throws MalformedURLException {
-        final String USERNAME = "WasylSH";
-        final String ACCESS_KEY = "050b93a3-bcd6-45b3-b36c-05b8289b4184";
+        final String USERNAME = "";
+        final String ACCESS_KEY = "";
         String URL = "https://" + USERNAME + ":" + ACCESS_KEY + "@ondemand.eu-central-1.saucelabs.com:443/wd/hub";
 
         DesiredCapabilities caps = new DesiredCapabilities();
