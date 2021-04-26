@@ -24,7 +24,7 @@ public class BaseTest {
         final String ACCESS_KEY = "050b93a3-bcd6-45b3-b36c-05b8289b4184";
         String URL = "https://" + USERNAME + ":" + ACCESS_KEY + "@ondemand.eu-central-1.saucelabs.com:443/wd/hub";
 
-        DesiredCapabilities caps = DesiredCapabilities.chrome();
+        DesiredCapabilities caps = new DesiredCapabilities();
         caps.setCapability("platformName", "Windows 10");
         caps.setCapability("browserVersion", "latest");
 
