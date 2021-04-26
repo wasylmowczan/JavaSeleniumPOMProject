@@ -25,8 +25,13 @@ public class BaseTest {
         String URL = "https://" + USERNAME + ":" + ACCESS_KEY + "@ondemand.eu-central-1.saucelabs.com:443/wd/hub";
 
         DesiredCapabilities caps = DesiredCapabilities.chrome();
-        caps.setCapability("platform", "Windows 10");
-        caps.setCapability("version", "latest");
+        caps.setCapability("platformName", "Windows 10");
+        caps.setCapability("browserVersion", "latest");
+
+        caps.setCapability("build", "Onboarding Sample App - Java-Junit5");
+
+        //set your test case name so that it shows up in Sauce Labs
+        caps.setCapability("name", "1-first-test");
 
         driver = new RemoteWebDriver(new URL(URL), caps);
         //WebDriverManager.chromedriver().setup();
