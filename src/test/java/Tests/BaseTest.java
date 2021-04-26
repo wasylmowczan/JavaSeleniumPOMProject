@@ -20,16 +20,15 @@ public class BaseTest {
 
     @BeforeEach
     public void testSetUp() throws MalformedURLException {
-        final String USERNAME = "YOUR_USERNAME";
-        final String ACCESS_KEY = "YOUR_ACCESS_KEY";
-        String URL = "http://" + USERNAME + ":" + ACCESS_KEY + "@ondemand.eu-central-1.saucelabs.com:443/wd/hub";
+        final String USERNAME = "WasylSH";
+        final String ACCESS_KEY = "050b93a3-bcd6-45b3-b36c-05b8289b4184";
+        String URL = "https://" + USERNAME + ":" + ACCESS_KEY + "@ondemand.eu-central-1.saucelabs.com:443/wd/hub";
 
         DesiredCapabilities caps = DesiredCapabilities.chrome();
         caps.setCapability("platform", "Windows 10");
         caps.setCapability("version", "latest");
 
         driver = new RemoteWebDriver(new URL(URL), caps);
-
         //WebDriverManager.chromedriver().setup();
         //driver = new ChromeDriver();
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
