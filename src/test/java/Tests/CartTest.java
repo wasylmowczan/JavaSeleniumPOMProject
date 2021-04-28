@@ -8,7 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CartTest extends BaseTest {
-
     String productId = "386";
     String productUrl = "https://fakestore.testelka.pl/product/egipt-el-gouna/";
     String categoryURL = "https://fakestore.testelka.pl/product-category/windsurfing/";
@@ -22,7 +21,6 @@ public class CartTest extends BaseTest {
         ProductPage productPage = new ProductPage(driver).goTo(productUrl);
         productPage.demoNotice.close();
         boolean isProductInCart = productPage.addToCart().viewCart().isProductInCart(productId);
-
         assertTrue(isProductInCart,
                 "Remove button was not found for a product with id=" + productId + ". " +
                         "Was the product added to cart?");
@@ -33,7 +31,6 @@ public class CartTest extends BaseTest {
         CategoryPage categoryPage = new CategoryPage(driver).goTo(categoryURL);
         categoryPage.demoNotice.close();
         boolean isProductInCart = categoryPage.addToCart(productId).viewCart().isProductInCart(productId);
-
         assertTrue(isProductInCart,
                 "Remove button was not found for a product with  id=" + productId + ". " +
                         "Was the product added to cart?");
@@ -44,7 +41,6 @@ public class CartTest extends BaseTest {
         ProductPage productPage = new ProductPage(driver).goTo(productUrl);
         productPage.demoNotice.close();
         int productQuantity = productPage.addToCart(10).viewCart().getProductQuantity();
-
         assertEquals(10, productQuantity,
                 "Quantity of the product is not what expected. Expected: 10, but was " + productQuantity);
     }
@@ -56,7 +52,6 @@ public class CartTest extends BaseTest {
             productPage.goTo("https://fakestore.testelka.pl/product" + product).addToCart();
         }
         int numberOfItems = productPage.header.viewCart().getNumberOfProducts();
-
         assertEquals(10, numberOfItems,
                 "Number of items in the cart is not correct. Expected: 10, but was: " + numberOfItems);
     }
@@ -75,7 +70,6 @@ public class CartTest extends BaseTest {
         ProductPage productPage = new ProductPage(driver).goTo("https://fakestore.testelka.pl/product/egipt-el-gouna/");
         productPage.demoNotice.close();
         boolean isCartEmpty = productPage.addToCart().viewCart().removeProduct(productId).isCartEmpty();
-
         assertTrue(isCartEmpty,
                 "Cart is not empty after removing the product");
     }

@@ -19,14 +19,14 @@ public class CategoryPage extends BasePage {
 
     public CategoryPage goTo(String url) {
         driver.navigate().to(url);
-        return new CategoryPage(driver);
+        return this;
     }
 
     public CategoryPage addToCart(String productId) {
         By addToCartButton = By.cssSelector(addToCartButtonCssSelector.replace("<product_id>", productId));
         driver.findElement(addToCartButton).click();
         wait.until(ExpectedConditions.attributeContains(addToCartButton, "class", "added"));
-        return new CategoryPage(driver);
+        return this;
     }
 
     public CartPage viewCart() {

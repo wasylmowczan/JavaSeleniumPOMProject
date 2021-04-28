@@ -18,7 +18,6 @@ public class BaseTest {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
-
         driver.manage().window().setSize(new Dimension(1290, 730));
         driver.manage().window().setPosition(new Point(8, 30));
     }

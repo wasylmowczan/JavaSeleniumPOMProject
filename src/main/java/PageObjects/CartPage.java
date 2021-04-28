@@ -14,6 +14,7 @@ public class CartPage extends BasePage {
     private final By cartItemLocator = By.cssSelector(".cart_item");
     private final By updateCartButtonLocator = By.cssSelector("[name='update_cart']");
     private final By loaderLocator = By.cssSelector(".blockOverlay");
+    private final By checkoutButtonLocator = By.cssSelector(".checkout-button");
     public CartPage(WebDriver driver) {
         super(driver);
         wait = new WebDriverWait(driver, 5);
@@ -52,21 +53,21 @@ public class CartPage extends BasePage {
         WebElement quantityField = driver.findElement(productQuantityFieldLocator);
         quantityField.clear();
         quantityField.sendKeys(Integer.toString(quantity));
-        return new CartPage(driver);
+        return this;
     }
 
     public CartPage updateCart() {
         WebElement updateButton = driver.findElement(updateCartButtonLocator);
         wait.until(ExpectedConditions.elementToBeClickable(updateButton));
         updateButton.click();
-        return new CartPage(driver);
+        return this;
     }
 
     public CartPage removeProduct(String productId) {
         By removeProductLocator = By.cssSelector(removeProductButtonCssSelector.replace("<product_id>", productId));
         driver.findElement(removeProductLocator).click();
         wait.until(ExpectedConditions.invisibilityOfElementLocated(loaderLocator));
-        return new CartPage(driver);
+        return this;
     }
 
     public boolean isCartEmpty() {
@@ -78,5 +79,10 @@ public class CartPage extends BasePage {
         } else {
             throw new IllegalArgumentException("Wrong number of shop table elements: there can be only one or none");
         }
+    }
+
+    public CheckoutPage goToCheckout() {
+        driver.findElement(checkoutButtonLocator).click();
+        return new CheckoutPage(driver);
     }
 }
