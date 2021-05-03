@@ -1,7 +1,8 @@
 package Tests;
 
 import Drivers.DriverFactory;
-import Utils.ConfigurationManager;
+import Utils.ConfigurationReader;
+import Utils.TestDataReader;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -15,11 +16,15 @@ import java.util.concurrent.TimeUnit;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class BaseTest {
     protected WebDriver driver;
-    protected ConfigurationManager configuration;
+    protected ConfigurationReader configuration;
+    protected TestDataReader testData;
+    private final String testDataLocation = "src/test/java/TestData.properties";
+    private final String configurationLocation = "src/configs/Configuration.properties";
 
     @BeforeAll
     public void getConfiguration() {
-        configuration = new ConfigurationManager();
+        configuration = new ConfigurationReader(configurationLocation);
+        testData = new TestDataReader(testDataLocation);
     }
 
     @BeforeEach

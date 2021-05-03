@@ -9,35 +9,23 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PaymentTests extends BaseTest {
-    private final String name = "Ola";
-    private final String lastName = "Nowak";
-    private final String countryCode = "BE";
-    private final String address = "Wielicka 2/15";
-    private final String postalCode = "30-658as";
-    private final String city = "Sopot";
-    private final String phone = "6666666";
-    private final String emailAddress = "test1@testelka.pl";
-    private final String cardNumber = "4242424242424242";
-    private final String expirationDate = "0530";
-    private final String cvcCode = "123";
-
     @Test
     public void buyWithoutAccountTest() {
-        ProductPage productPage = new ProductPage(driver).goTo("https://fakestore.testelka.pl/product/egipt-el-gouna/");
+        ProductPage productPage = new ProductPage(driver).goTo(configuration.getBaseUrl() + testData.getProduct().getUrl());
         productPage.demoNotice.close();
         CartPage cartPage = productPage.addToCart().viewCart();
         CheckoutPage checkoutPage = cartPage.goToCheckout();
-        OrderReceivedPage orderReceivedPage = checkoutPage.typeName(name)
-                .typeLastName(lastName)
-                .chooseCountry(countryCode)
-                .typeAddress(address)
-                .typePostalCode(postalCode)
-                .typeCity(city)
-                .typePhone(phone)
-                .typeEmail(emailAddress)
-                .typeCardNumber(cardNumber)
-                .typeCardExpirationDate(expirationDate)
-                .typeCvcCode(cvcCode)
+        OrderReceivedPage orderReceivedPage = checkoutPage.typeName(testData.getCustomer().getName())
+                .typeLastName(testData.getCustomer().getLastName())
+                .chooseCountry(testData.getAddress().getCountryCode())
+                .typeAddress(testData.getAddress().getStreet())
+                .typePostalCode(testData.getAddress().getPostalCode())
+                .typeCity(testData.getAddress().getCity())
+                .typePhone(testData.getContact().getPhone())
+                .typeEmail(testData.getContact().getEmail())
+                .typeCardNumber(testData.getCard().getNumber())
+                .typeCardExpirationDate(testData.getCard().getExpirationDate())
+                .typeCvcCode(testData.getCard().getCvc())
                 .selectAcceptTerms()
                 .order();
         boolean isOrderSuccessful = orderReceivedPage.isOrderSuccessful();
