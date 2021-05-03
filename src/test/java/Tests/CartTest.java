@@ -9,8 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CartTest extends BaseTest {
     String productId = "386";
-    String productUrl = "https://fakestore.testelka.pl/product/egipt-el-gouna/";
-    String categoryURL = "https://fakestore.testelka.pl/product-category/windsurfing/";
+    String productUrl = baseUrl+ "/product/egipt-el-gouna/";
+    String categoryURL = baseUrl+ "/product-category/windsurfing/";
     String[] productPages = {"/egipt-el-gouna/", "/wspinaczka-via-ferraty/", "/wspinaczka-island-peak/",
             "/fuerteventura-sotavento/", "/grecja-limnos/", "/windsurfing-w-karpathos/",
             "/wyspy-zielonego-przyladka-sal/", "/wakacje-z-yoga-w-kraju-kwitnacej-wisni/",
@@ -49,7 +49,7 @@ public class CartTest extends BaseTest {
     public void addTenProductsToCartTest() {
         ProductPage productPage = new ProductPage(driver);
         for (String product : productPages) {
-            productPage.goTo("https://fakestore.testelka.pl/product" + product).addToCart();
+            productPage.goTo(baseUrl + "/product" + product).addToCart();
         }
         int numberOfItems = productPage.header.viewCart().getNumberOfProducts();
         assertEquals(10, numberOfItems,
@@ -58,7 +58,7 @@ public class CartTest extends BaseTest {
 
     @Test
     public void changeNumberOfProductsTest() {
-        ProductPage productPage = new ProductPage(driver).goTo("https://fakestore.testelka.pl/product/egipt-el-gouna/");
+        ProductPage productPage = new ProductPage(driver).goTo(baseUrl + "/product/egipt-el-gouna/");
         productPage.demoNotice.close();
         int quantity = productPage.addToCart().viewCart().changeQuantity(8).updateCart().getProductQuantity();
         assertEquals(8, quantity,
@@ -67,7 +67,7 @@ public class CartTest extends BaseTest {
 
     @Test
     public void removePositionFromCartTest() {
-        ProductPage productPage = new ProductPage(driver).goTo("https://fakestore.testelka.pl/product/egipt-el-gouna/");
+        ProductPage productPage = new ProductPage(driver).goTo(baseUrl + "/product/egipt-el-gouna/");
         productPage.demoNotice.close();
         boolean isCartEmpty = productPage.addToCart().viewCart().removeProduct(productId).isCartEmpty();
         assertTrue(isCartEmpty,
