@@ -14,36 +14,35 @@ import java.net.URL;
 public class DriverFactory {
     private RemoteWebDriver driver;
 
-    public WebDriver create() {
-        Browser browserType = Browser.valueOf(ConfigurationManager.getInstance().getBrowser());
-        switch (browserType) {
+    public WebDriver create(ConfigurationManager configuration) {
+        switch (Browser.valueOf(configuration.getBrowser())) {
             case CHROME:
-                return getChromeDriver();
+                return getChromeDriver(configuration);
             case FIREFOX:
-                return getFirefoxDriver();
+                return getFirefoxDriver(configuration);
             default:
                 throw new IllegalArgumentException("Provided browser doesn't exist");
         }
     }
 
-    private WebDriver getFirefoxDriver() {
+    private WebDriver getFirefoxDriver(ConfigurationManager configuration) {
         FirefoxOptions options = new FirefoxOptions();
-        return getDriver(options);
+        return getDriver(options, configuration);
     }
 
-    private WebDriver getChromeDriver() {
+    private WebDriver getChromeDriver(ConfigurationManager configuration) {
         ChromeOptions options = new ChromeOptions();
         options.setCapability(CapabilityType.VERSION, "66");
-        return getDriver(options);
+        return getDriver(options, configuration);
     }
 
-    private WebDriver getDriver(MutableCapabilities options) {
+    private WebDriver getDriver(MutableCapabilities options, ConfigurationManager configuration) {
         try {
-            driver = new RemoteWebDriver(new URL(ConfigurationManager.getInstance().getHubUrl()), options);
+            driver = new RemoteWebDriver(new URL(configuration.getHubUrl()), options);
         } catch (MalformedURLException e) {
             e.printStackTrace();
             System.out.println(e + " was thrown. HubUrl in the configuration file is incorrect or missing. " +
-                    "Check the configuration file: " + ConfigurationManager.getInstance().getConfigurationLocation());
+                    "Check the configuration file: " + configuration.getConfigurationLocation());
         }
         return driver;
     }
